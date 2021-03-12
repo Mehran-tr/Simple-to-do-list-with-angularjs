@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>
+		Simple to do list | AngularJs
+	</title>
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<body>
+
+<script>
+var app = angular.module("toDoList", []); 
+app.controller("myCtrl", function($scope) {
+    $scope.products = [];
+    $scope.addItem = function () {
+        $scope.errortext = "";
+        if (!$scope.addMe) {return;}
+        if ($scope.products.indexOf($scope.addMe) == -1) {
+            $scope.products.push($scope.addMe);
+        } 
+    }
+    $scope.removeItem = function (X) {
+        $scope.errortext = "";    
+        $scope.products.splice(X, 1);
+    }
+});
+</script>
+
+<div ng-app="toDoList" ng-cloak ng-controller="myCtrl" class="w3-card-2 w3-margin" style="max-width:400px;">
+  <header class="w3-container w3-light-grey w3-padding-16">
+    <h3>To Do List</h3>
+  </header>
+  <ul class="w3-ul">
+    <li ng-repeat="X in products" class="w3-padding-16">{{X}}<span ng-click="removeItem($index)" style="width:50px;height:50px;margin:15px;cursor:pointer;border-radius:50%;border-width:0;font-weight:bold;font-size:15px;background-color:#f72e0f" class="w3-right w3-margin-right">X</span></li>
+  </ul>
+  <div class="w3-container w3-light-grey w3-padding-16">
+    <div class="w3-row w3-margin-top">
+      <div class="w3-col s10">
+        <input placeholder="Add To Do here" ng-model="addMe" class="w3-input w3-border w3-padding">
+      </div>
+      <div class="w3-col s2">
+        <button ng-click="addItem()" class="w3-btn w3-padding w3-green">Add</button>
+      </div>
+    </div>
+    <p class="w3-text-red">{{errortext}}</p>
+  </div>
+</div>
+
+</body>
+</html>
